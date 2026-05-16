@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import DiscountBanner from '@/components/DiscountBanner';
 import Link from 'next/link';
 import { categories, products } from '@/data/products';
+import { useLanguage } from '@/context/LanguageContext';
 import { ArrowRight, Truck, ShieldCheck, Headphones, Star } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 
@@ -16,6 +17,7 @@ const categoryIcons: Record<string, string> = {
 };
 
 export default function Home() {
+  const { t } = useLanguage();
   const featuredProducts = products.filter(p => p.rating >= 4.7).slice(0, 6);
   const dealProducts = products.filter(p => p.original_price).slice(0, 6);
   const topRated = [...products].sort((a, b) => b.rating - a.rating).slice(0, 6);
@@ -61,7 +63,7 @@ export default function Home() {
 
         {/* Category Cards */}
         <section className="max-w-7xl mx-auto px-4 py-10">
-          <h2 className="section-title mb-6">Shop by Category</h2>
+          <h2 className="section-title mb-6">{t.shopByCategory}</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {categories.map((cat) => (
               <Link
@@ -73,7 +75,7 @@ export default function Home() {
                 <div className="absolute inset-0">
                   <img
                     src={cat.image || ''}
-                    alt={cat.name}
+                    alt={t[cat.id as keyof typeof t] || cat.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     loading="lazy"
                   />
@@ -86,14 +88,14 @@ export default function Home() {
                     {categoryIcons[cat.id] || '📦'}
                   </div>
                   <h3 className="text-white font-bold text-lg md:text-xl mb-1 text-center">
-                    {cat.name}
+                    {t[cat.id as keyof typeof t] || cat.name}
                   </h3>
                   <p className="text-white/80 text-sm text-center">
-                    {cat.description}
+                    {t[(`${cat.id}Desc`) as keyof typeof t] || cat.description}
                   </p>
                   {/* Arrow indicator */}
                   <div className="mt-3 inline-flex items-center gap-1 text-white/70 text-xs font-medium group-hover:text-white group-hover:gap-2 transition-all">
-                    <span>Shop Now</span>
+                    <span>{t.shopNow}</span>
                     <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
@@ -106,7 +108,7 @@ export default function Home() {
         <section className="max-w-7xl mx-auto px-4 pb-8">
           <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
             <div className="flex-1">
-              <span className="text-red-600 font-bold text-sm uppercase tracking-wide">Deal of the Day</span>
+              <span className="text-red-600 font-bold text-sm uppercase tracking-wide">{t.dealOfTheDay}</span>
               <h2 className="text-2xl font-bold text-gray-900 mt-1 mb-2">
                 {dealProducts[0]?.name}
               </h2>
@@ -123,7 +125,7 @@ export default function Home() {
                 )}
               </div>
               <Link href={`/catalog?category=${dealProducts[0]?.category}`} className="btn-yellow mt-4 inline-block">
-                Shop This Deal
+                {t.shopThisDeal}
               </Link>
             </div>
             <div className="w-full md:w-72 h-48 bg-white rounded-lg overflow-hidden flex-shrink-0">
@@ -141,11 +143,11 @@ export default function Home() {
         <section className="max-w-7xl mx-auto px-4 py-8">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h2 className="section-title">Top Deals</h2>
-              <p className="text-gray-500 text-sm mt-1">Best prices on select equipment</p>
+              <h2 className="section-title">{t.topDealsTitle}</h2>
+              <p className="text-gray-500 text-sm mt-1">{t.topDealsSub}</p>
             </div>
             <Link href="/catalog" className="link-chevron">
-              View all deals <ArrowRight size={16} />
+              {t.viewAllDeals} <ArrowRight size={16} />
             </Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -160,11 +162,11 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <h2 className="section-title">Featured Products</h2>
-                <p className="text-gray-500 text-sm mt-1">Hand-picked by our team</p>
+                <h2 className="section-title">{t.featuredProducts}</h2>
+                <p className="text-gray-500 text-sm mt-1">{t.featuredSub}</p>
               </div>
               <Link href="/catalog" className="link-chevron">
-                Shop all products <ArrowRight size={16} />
+                {t.shopAll} <ArrowRight size={16} />
               </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -179,14 +181,14 @@ export default function Home() {
         <section className="max-w-7xl mx-auto px-4 py-12">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h2 className="section-title">Top Rated</h2>
+              <h2 className="section-title">{t.topRated}</h2>
               <div className="flex items-center gap-1 mt-1">
                 <Star size={14} className="fill-yellow-400 text-yellow-400" />
-                <span className="text-gray-500 text-sm">Highest customer ratings</span>
+                <span className="text-gray-500 text-sm">{t.topRatedSub}</span>
               </div>
             </div>
             <Link href="/catalog" className="link-chevron">
-              View all <ArrowRight size={16} />
+              {t.viewAll} <ArrowRight size={16} />
             </Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -205,8 +207,8 @@ export default function Home() {
                   <Truck className="text-blue-600" size={22} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Fast Delivery</h3>
-                  <p className="text-gray-500 text-sm mt-1">Free shipping on orders over $500 across Australia</p>
+                  <h3 className="font-semibold text-gray-900">{t.fastDelivery}</h3>
+                  <p className="text-gray-500 text-sm mt-1">{t.fastDeliveryDesc}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -214,8 +216,8 @@ export default function Home() {
                   <ShieldCheck className="text-blue-600" size={22} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Quality Guarantee</h3>
-                  <p className="text-gray-500 text-sm mt-1">All products backed by manufacturer warranty</p>
+                  <h3 className="font-semibold text-gray-900">{t.qualityGuarantee}</h3>
+                  <p className="text-gray-500 text-sm mt-1">{t.qualityGuaranteeDesc}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -223,8 +225,8 @@ export default function Home() {
                   <Headphones className="text-blue-600" size={22} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Expert Support</h3>
-                  <p className="text-gray-500 text-sm mt-1">Our team is here to help 7 days a week</p>
+                  <h3 className="font-semibold text-gray-900">{t.expertSupport}</h3>
+                  <p className="text-gray-500 text-sm mt-1">{t.expertSupportDesc}</p>
                 </div>
               </div>
             </div>
@@ -234,9 +236,9 @@ export default function Home() {
         {/* CTA Banner */}
         <section className="bg-blue-600 text-white">
           <div className="max-w-7xl mx-auto px-4 py-12 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">Join Thousands of Happy Customers</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">{t.joinCustomers}</h2>
             <p className="text-blue-100 mb-6 text-lg">
-              Sign up today and get 10% off your first order
+              {t.joinSub}
             </p>
             <div className="flex justify-center mb-4">
               {[...Array(5)].map((_, i) => (
@@ -246,7 +248,7 @@ export default function Home() {
             <p className="text-blue-100 italic text-sm">&quot;Best selection of equipment I&apos;ve found online. Fast delivery and great prices!&quot;</p>
             <p className="text-white font-semibold text-sm mt-1">— John M., Queensland</p>
             <Link href="/login" className="btn-yellow mt-6 inline-block px-8 py-3">
-              Sign Up Now
+              {t.signUpNow}
             </Link>
           </div>
         </section>

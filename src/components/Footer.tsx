@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 py-12">
@@ -35,38 +37,38 @@ export default function Footer() {
 
           {/* Shop */}
           <div>
-            <h4 className="font-semibold text-white text-sm uppercase tracking-wide mb-4">Shop</h4>
+            <h4 className="font-semibold text-white text-sm uppercase tracking-wide mb-4">{t.shop}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/catalog" className="hover:text-white transition-colors">All Products</Link></li>
-              <li><Link href="/catalog?category=chainsaws" className="hover:text-white transition-colors">Бензопилы</Link></li>
-              <li><Link href="/catalog?category=mowers" className="hover:text-white transition-colors">Газонокосилки</Link></li>
-              <li><Link href="/catalog?category=construction" className="hover:text-white transition-colors">Строительные инструменты</Link></li>
-              <li><Link href="/catalog?category=electrical" className="hover:text-white transition-colors">Электротехника</Link></li>
-              <li><Link href="/catalog" className="hover:text-white transition-colors text-yellow-400">Top Deals</Link></li>
+              <li><Link href="/catalog" className="hover:text-white transition-colors">{t.allProductsLink}</Link></li>
+              <li><Link href="/catalog?category=chainsaws" className="hover:text-white transition-colors">{t.chainsaws}</Link></li>
+              <li><Link href="/catalog?category=mowers" className="hover:text-white transition-colors">{t.mowers}</Link></li>
+              <li><Link href="/catalog?category=construction" className="hover:text-white transition-colors">{t.construction}</Link></li>
+              <li><Link href="/catalog?category=electrical" className="hover:text-white transition-colors">{t.electrical}</Link></li>
+              <li><Link href="/catalog" className="hover:text-white transition-colors text-yellow-400">{t.topDeals}</Link></li>
             </ul>
           </div>
 
           {/* Account */}
           <div>
-            <h4 className="font-semibold text-white text-sm uppercase tracking-wide mb-4">Account</h4>
+            <h4 className="font-semibold text-white text-sm uppercase tracking-wide mb-4">{t.account}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/login" className="hover:text-white transition-colors">Sign In</Link></li>
-              <li><Link href="/login" className="hover:text-white transition-colors">Create Account</Link></li>
-              <li><Link href="/cart" className="hover:text-white transition-colors">Shopping Cart</Link></li>
-              <li><Link href="/account" className="hover:text-white transition-colors">My Account</Link></li>
-              <li><Link href="/account" className="hover:text-white transition-colors">Order Status</Link></li>
+              <li><Link href="/login" className="hover:text-white transition-colors">{t.signIn}</Link></li>
+              <li><Link href="/login" className="hover:text-white transition-colors">{t.createAccount}</Link></li>
+              <li><Link href="/cart" className="hover:text-white transition-colors">{t.shoppingCart}</Link></li>
+              <li><Link href="/account" className="hover:text-white transition-colors">{t.myAccount}</Link></li>
+              <li><Link href="/account" className="hover:text-white transition-colors">{t.orderStatus}</Link></li>
             </ul>
           </div>
 
           {/* Support */}
           <div>
-            <h4 className="font-semibold text-white text-sm uppercase tracking-wide mb-4">Support</h4>
+            <h4 className="font-semibold text-white text-sm uppercase tracking-wide mb-4">{t.support}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/" className="hover:text-white transition-colors">Help Center</Link></li>
-              <li><Link href="/" className="hover:text-white transition-colors">Shipping Info</Link></li>
-              <li><Link href="/" className="hover:text-white transition-colors">Returns</Link></li>
-              <li><Link href="/" className="hover:text-white transition-colors">Warranty</Link></li>
-              <li><Link href="/" className="hover:text-white transition-colors">Contact Us</Link></li>
+              <li><Link href="/" className="hover:text-white transition-colors">{t.helpCenter}</Link></li>
+              <li><Link href="/" className="hover:text-white transition-colors">{t.shippingInfo}</Link></li>
+              <li><Link href="/" className="hover:text-white transition-colors">{t.returns}</Link></li>
+              <li><Link href="/" className="hover:text-white transition-colors">{t.warranty}</Link></li>
+              <li><Link href="/" className="hover:text-white transition-colors">{t.contactUs}</Link></li>
             </ul>
           </div>
         </div>

@@ -3,6 +3,7 @@
 import { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { useDiscount } from '@/context/DiscountContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { ShoppingCart, Star, CheckCircle, XCircle, Tag } from 'lucide-react';
 import { useState } from 'react';
 
@@ -13,6 +14,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const { discountApplied, getDiscountedPrice } = useDiscount();
+  const { t } = useLanguage();
   const [imageError, setImageError] = useState(false);
 
   const discountedPrice = discountApplied ? getDiscountedPrice(product.price) : product.price;
@@ -48,7 +50,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="absolute top-2 left-2 flex flex-col gap-1.5">
           {discountPercent > 0 && (
             <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
-              Save {discountPercent}%
+              {t.save} {discountPercent}%
             </span>
           )}
           {product.badge && (
@@ -67,7 +69,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {!product.in_stock && (
           <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
             <span className="bg-red-100 text-red-700 px-4 py-1.5 rounded-full text-sm font-semibold">
-              Out of Stock
+              {t.outOfStock}
             </span>
           </div>
         )}
@@ -103,7 +105,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="mb-3">
           {savings > 0 && (
             <span className="text-red-600 text-xs font-semibold mb-0.5 block">
-              Save ${savings.toFixed(2)}
+              {t.save} ${savings.toFixed(2)}
             </span>
           )}
           <div className="flex items-baseline gap-2">
@@ -123,14 +125,14 @@ export default function ProductCard({ product }: ProductCardProps) {
           <>
             <span className="flex items-center gap-1 text-green-600 text-xs font-medium mb-2">
               <CheckCircle size={12} />
-              Available to ship
+              {t.available}
             </span>
             <button
               onClick={() => addToCart({ id: product.id, name: product.name, price: discountedPrice, image: product.image })}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-full text-sm transition-colors flex items-center justify-center gap-2"
             >
               <ShoppingCart size={16} />
-              Add to Cart
+              {t.addToCart}
             </button>
           </>
         ) : (
