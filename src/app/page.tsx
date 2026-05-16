@@ -7,7 +7,7 @@ import DealOfDay from '@/components/DealOfDay';
 import Link from 'next/link';
 import { categories, products } from '@/data/products';
 import { useLanguage } from '@/context/LanguageContext';
-import { Truck, ShieldCheck, Headphones, Star } from 'lucide-react';
+import { ArrowRight, Truck, ShieldCheck, Headphones, Star } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 
 const categoryIcons: Record<string, string> = {
