@@ -7,10 +7,10 @@ import { ShoppingCart, User, Menu, X, ChevronDown, Search } from 'lucide-react';
 import { useState } from 'react';
 
 const navCategories = [
-  { label: 'Chainsaws', href: '/catalog?category=chainsaws' },
-  { label: 'Lawn Mowers', href: '/catalog?category=mowers' },
-  { label: 'Construction', href: '/catalog?category=construction' },
-  { label: 'Electrical', href: '/catalog?category=electrical' },
+  { label: 'Бензопилы', href: '/catalog?category=chainsaws' },
+  { label: 'Газонокосилки', href: '/catalog?category=mowers' },
+  { label: 'Строительные', href: '/catalog?category=construction' },
+  { label: 'Электротехника', href: '/catalog?category=electrical' },
 ];
 
 export default function Header() {

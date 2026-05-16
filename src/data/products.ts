@@ -16,10 +16,10 @@ export interface Product {
 export type Category = 'chainsaws' | 'mowers' | 'construction' | 'electrical';
 
 export const categories = [
-  { id: 'chainsaws', name: 'Chainsaws', icon: '🪚', description: 'Professional & domestic chainsaws', image: 'https://images.unsplash.com/photo-1504280390367-36ae6538e72d?w=800&h=600&fit=crop&q=80' },
-  { id: 'mowers', name: 'Lawn Mowers', icon: '🌿', description: 'Ride-on & push mowers', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/31dd2b59c-998e-4da7-a86b-b146d820ff358965.png' },
-  { id: 'construction', name: 'Construction Tools', icon: '🔨', description: 'Power & hand tools', image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=600&fit=crop&q=80' },
-  { id: 'electrical', name: 'Electrical', icon: '⚡', description: 'Wiring, lighting & power equipment', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=600&fit=crop&q=80' },
+  { id: 'chainsaws', name: 'Бензопилы', icon: '🪚', description: 'Профессиональные и бытовые бензопилы', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/41dd2b59c-998e-4da7-a86b-b146d820ff355547.png' },
+  { id: 'mowers', name: 'Газонокосилки', icon: '🌿', description: 'Садовые и профессиональные газонокосилки', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/31dd2b59c-998e-4da7-a86b-b146d820ff358965.png' },
+  { id: 'construction', name: 'Строительные инструменты', icon: '🔨', description: 'Электро- и ручные инструменты', image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=600&fit=crop&q=80' },
+  { id: 'electrical', name: 'Электротехника', icon: '⚡', description: 'Проводка, освещение и электрооборудование', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=600&fit=crop&q=80' },
 ] as const;
 
 const imgPath = (cat: string, n: number) => `/images/${cat}-${n}.svg`;

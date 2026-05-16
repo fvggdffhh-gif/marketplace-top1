@@ -38,10 +38,10 @@ export default function Footer() {
             <h4 className="font-semibold text-white text-sm uppercase tracking-wide mb-4">Shop</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/catalog" className="hover:text-white transition-colors">All Products</Link></li>
-              <li><Link href="/catalog?category=chainsaws" className="hover:text-white transition-colors">Chainsaws</Link></li>
-              <li><Link href="/catalog?category=mowers" className="hover:text-white transition-colors">Lawn Mowers</Link></li>
-              <li><Link href="/catalog?category=construction" className="hover:text-white transition-colors">Construction</Link></li>
-              <li><Link href="/catalog?category=electrical" className="hover:text-white transition-colors">Electrical</Link></li>
+              <li><Link href="/catalog?category=chainsaws" className="hover:text-white transition-colors">Бензопилы</Link></li>
+              <li><Link href="/catalog?category=mowers" className="hover:text-white transition-colors">Газонокосилки</Link></li>
+              <li><Link href="/catalog?category=construction" className="hover:text-white transition-colors">Строительные инструменты</Link></li>
+              <li><Link href="/catalog?category=electrical" className="hover:text-white transition-colors">Электротехника</Link></li>
               <li><Link href="/catalog" className="hover:text-white transition-colors text-yellow-400">Top Deals</Link></li>
             </ul>
           </div>
