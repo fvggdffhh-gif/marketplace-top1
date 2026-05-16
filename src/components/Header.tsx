@@ -19,6 +19,7 @@ export default function Header() {
     { label: t.mowers, href: '/catalog?category=mowers' },
     { label: t.construction, href: '/catalog?category=construction' },
     { label: t.electrical, href: '/catalog?category=electrical' },
+    { label: t.plumbing, href: '/catalog?category=plumbing' },
   ];
 
   return (

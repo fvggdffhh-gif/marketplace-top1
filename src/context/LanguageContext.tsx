@@ -23,6 +23,8 @@ export interface Translations {
   constructionDesc: string;
   electrical: string;
   electricalDesc: string;
+  plumbing: string;
+  plumbingDesc: string;
 
   // Homepage
   shopByCategory: string;
@@ -110,6 +112,8 @@ const translations: Record<Language, Translations> = {
     constructionDesc: 'Power & hand tools',
     electrical: 'Electrical',
     electricalDesc: 'Wiring, lighting & power equipment',
+    plumbing: 'Plumbing',
+    plumbingDesc: 'Faucets, pipes & accessories',
     shopByCategory: 'Shop by Category',
     shopNow: 'Shop Now',
     dealOfTheDay: 'Deal of the Day',
@@ -183,12 +187,14 @@ const translations: Record<Language, Translations> = {
     cart: 'Корзина',
     chainsaws: 'Бензопилы',
     chainsawsDesc: 'Профессиональные и бытовые бензопилы',
-    mowers: 'Газонокосилки',
+    mowers: 'Все для сада',
     mowersDesc: 'Садовые и профессиональные газонокосилки',
     construction: 'Строительные инструменты',
     constructionDesc: 'Электро- и ручные инструменты',
     electrical: 'Электротехника',
     electricalDesc: 'Проводка, освещение и электрооборудование',
+    plumbing: 'Сантехника',
+    plumbingDesc: 'Смесители, трубы и аксессуары',
     shopByCategory: 'Покупайте по категориям',
     shopNow: 'Купить',
     dealOfTheDay: 'Товар дня',
