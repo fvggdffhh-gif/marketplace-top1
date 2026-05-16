@@ -3,12 +3,12 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import DiscountBanner from '@/components/DiscountBanner';
+import DealOfDay from '@/components/DealOfDay';
 import Link from 'next/link';
 import { categories, products } from '@/data/products';
 import { useLanguage } from '@/context/LanguageContext';
-import { ArrowRight, ArrowLeft, Truck, ShieldCheck, Headphones, Star } from 'lucide-react';
+import { Truck, ShieldCheck, Headphones, Star } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
-import { useState } from 'react';
 
 const categoryIcons: Record<string, string> = {
   chainsaws: '🪚',
@@ -16,153 +16,6 @@ const categoryIcons: Record<string, string> = {
   construction: '🔨',
   electrical: '⚡',
 };
-
-interface DealCarouselProps {
-  dealProducts: typeof products;
-  t: Record<string, string>;
-}
-
-function DealCarousel({ dealProducts, t }: DealCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const product = dealProducts[currentIndex] || dealProducts[0];
-  const savings = product?.original_price ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0;
-
-  const prev = () => setCurrentIndex(prev => (prev === 0 ? dealProducts.length - 1 : prev - 1));
-  const next = () => setCurrentIndex(prev => (prev === dealProducts.length - 1 ? 0 : prev + 1));
-
-  return (
-    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 shadow-2xl">
-      {/* Animated background pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-400 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-500 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4"></div>
-      </div>
-
-      {/* Sparkle decorations */}
-      <div className="absolute top-6 right-12 text-4xl animate-pulse" style={{animationDuration: '2s'}}>✨</div>
-      <div className="absolute bottom-8 left-8 text-2xl animate-pulse" style={{animationDuration: '3s'}}>⭐</div>
-
-      <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8 p-6 md:p-10">
-        {/* Left: Content */}
-        <div className="flex-1">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4 shadow-lg shadow-red-600/30">
-            <span className="animate-pulse">🔥</span>
-            <span className="uppercase tracking-wide">{t.dealOfTheDay}</span>
-          </div>
-
-          {/* Product name */}
-          <h2 className="text-2xl md:text-4xl font-bold text-white mb-3 leading-tight">
-            {product?.name}
-          </h2>
-
-          {/* Description */}
-          <p className="text-gray-300 mb-6 text-base md:text-lg max-w-xl">
-            {product?.description}
-          </p>
-
-          {/* Price block */}
-          <div className="flex items-end gap-4 mb-6">
-            <div>
-              <span className="text-gray-400 text-sm line-through block">
-                ${product?.original_price?.toFixed(2)}
-              </span>
-              <span className="text-4xl md:text-5xl font-black text-yellow-400">
-                ${product?.price.toFixed(2)}
-              </span>
-            </div>
-            {product?.original_price && (
-              <div className="bg-red-600 text-white px-4 py-2 rounded-xl text-center shadow-lg shadow-red-600/30">
-                <span className="text-xs uppercase block">Экономия</span>
-                <span className="text-xl font-bold">
-                  ${(product.original_price - product.price).toFixed(2)}
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Discount percentage badge */}
-          {product?.original_price && (
-            <div className="inline-flex items-center gap-2 bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-bold text-lg mb-6 shadow-lg shadow-yellow-400/30">
-              <span className="text-2xl">💰</span>
-              <span>
-                Скидка {savings}%
-              </span>
-            </div>
-          )}
-
-          {/* CTA Button */}
-          <div className="flex flex-wrap gap-3 mt-2">
-            <Link
-              href={`/catalog?category=${product?.category}`}
-              className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3.5 px-8 rounded-full text-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-yellow-400/30"
-            >
-              🛒 {t.shopThisDeal}
-            </Link>
-            <Link
-              href="/catalog"
-              className="inline-flex items-center gap-2 border-2 border-white/30 text-white hover:bg-white/10 font-semibold py-3.5 px-6 rounded-full transition-all duration-300"
-            >
-              {t.viewAll}
-              <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
-
-        {/* Right: Product Image + Navigation */}
-        <div className="lg:w-96 flex-shrink-0 relative">
-          {/* Navigation Arrows */}
-          <button
-            onClick={prev}
-            className="absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-200 shadow-lg"
-          >
-            <ArrowLeft size={20} />
-          </button>
-          <button
-            onClick={next}
-            className="absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-200 shadow-lg"
-          >
-            <ArrowRight size={20} />
-          </button>
-
-          <div className="relative w-72 h-72 md:w-80 md:h-80 mx-auto">
-            {/* Glow ring */}
-            <div className="absolute inset-0 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>
-            {/* Image container */}
-            <div className="relative w-full h-full bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
-              <img
-                src={product?.image}
-                alt={product?.name}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 300 200%22><rect fill=%22%23374151%22 width=%22300%22 height=%22200%22 rx=%2216%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2248%22 fill=%22white%22>🪚</text></svg>';
-                }}
-              />
-              {/* Corner ribbon */}
-              <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow-lg">
-                -{savings}%
-              </div>
-            </div>
-          </div>
-
-          {/* Dots indicator */}
-          <div className="flex justify-center gap-2 mt-6">
-            {dealProducts.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentIndex(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                  i === currentIndex ? 'bg-yellow-400 w-8' : 'bg-white/30 hover:bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function Home() {
   const { t } = useLanguage();
@@ -252,9 +105,9 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Deal of the Day Banner - Carousel */}
+        {/* Deal of the Day */}
         <section className="max-w-7xl mx-auto px-4 pb-10">
-          <DealCarousel dealProducts={dealProducts} t={t} />
+          <DealOfDay dealProducts={dealProducts} />
         </section>
 
         {/* Top Deals Section */}
