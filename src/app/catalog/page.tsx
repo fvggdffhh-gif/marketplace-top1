@@ -124,12 +124,6 @@ function CatalogSearch() {
             )}
           </div>
 
-          {/* Results Count */}
-          <div className="mb-4 text-gray-600">
-            Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
-            {selectedCategory !== 'all' && ` in ${categories.find(c => c.id === selectedCategory)?.name}`}
-          </div>
-
           {/* Products Grid */}
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
