@@ -11,7 +11,6 @@ import ProductCard from '@/components/ProductCard';
 const categoryIcons: Record<string, string> = {
   chainsaws: '🪚',
   mowers: '🌿',
-  fishing: '🎣',
   construction: '🔨',
   electrical: '⚡',
 };
@@ -19,7 +18,6 @@ const categoryIcons: Record<string, string> = {
 const categoryGradients: Record<string, string> = {
   chainsaws: 'from-green-500 to-green-700',
   mowers: 'from-emerald-400 to-teal-600',
-  fishing: 'from-blue-500 to-blue-700',
   construction: 'from-orange-500 to-orange-700',
   electrical: 'from-purple-500 to-indigo-700',
 };
@@ -27,7 +25,6 @@ const categoryGradients: Record<string, string> = {
 const categoryCounts: Record<string, number> = {
   chainsaws: 25,
   mowers: 25,
-  fishing: 25,
   construction: 25,
   electrical: 25,
 };
@@ -95,12 +92,9 @@ export default function Home() {
                   <h3 className="text-white font-bold text-lg md:text-xl mb-1 relative z-10">
                     {cat.name}
                   </h3>
-                  <p className="text-white/80 text-sm mb-3 relative z-10">
+                  <p className="text-white/80 text-sm relative z-10">
                     {cat.description}
                   </p>
-                  <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full relative z-10">
-                    {categoryCounts[cat.id] || 0} Products
-                  </span>
                 </div>
               </Link>
             ))}

@@ -11,7 +11,6 @@ interface CategorySelectorProps {
 const categoryIcons: Record<string, string> = {
   chainsaws: '🪚',
   mowers: '🌿',
-  fishing: '🎣',
   construction: '🔨',
   electrical: '⚡',
 };
