@@ -16,10 +16,10 @@ export interface Product {
 export type Category = 'chainsaws' | 'mowers' | 'construction' | 'electrical';
 
 export const categories = [
-  { id: 'chainsaws', name: 'Chainsaws', icon: '🪚', description: 'Professional & domestic chainsaws' },
-  { id: 'mowers', name: 'Lawn Mowers', icon: '🌿', description: 'Ride-on & push mowers' },
-  { id: 'construction', name: 'Construction Tools', icon: '🔨', description: 'Power & hand tools' },
-  { id: 'electrical', name: 'Electrical', icon: '⚡', description: 'Wiring, lighting & power equipment' },
+  { id: 'chainsaws', name: 'Chainsaws', icon: '🪚', description: 'Professional & domestic chainsaws', image: 'https://images.unsplash.com/photo-1504280390367-36ae6538e72d?w=800&h=600&fit=crop&q=80' },
+  { id: 'mowers', name: 'Lawn Mowers', icon: '🌿', description: 'Ride-on & push mowers', image: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=800&h=600&fit=crop&q=80' },
+  { id: 'construction', name: 'Construction Tools', icon: '🔨', description: 'Power & hand tools', image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=600&fit=crop&q=80' },
+  { id: 'electrical', name: 'Electrical', icon: '⚡', description: 'Wiring, lighting & power equipment', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=600&fit=crop&q=80' },
 ] as const;
 
 const imgPath = (cat: string, n: number) => `/images/${cat}-${n}.svg`;

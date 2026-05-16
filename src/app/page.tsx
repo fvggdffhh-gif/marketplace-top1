@@ -15,20 +15,6 @@ const categoryIcons: Record<string, string> = {
   electrical: '⚡',
 };
 
-const categoryGradients: Record<string, string> = {
-  chainsaws: 'from-green-500 to-green-700',
-  mowers: 'from-emerald-400 to-teal-600',
-  construction: 'from-orange-500 to-orange-700',
-  electrical: 'from-purple-500 to-indigo-700',
-};
-
-const categoryCounts: Record<string, number> = {
-  chainsaws: 25,
-  mowers: 25,
-  construction: 25,
-  electrical: 25,
-};
-
 export default function Home() {
   const featuredProducts = products.filter(p => p.rating >= 4.7).slice(0, 6);
   const dealProducts = products.filter(p => p.original_price).slice(0, 6);
@@ -76,25 +62,40 @@ export default function Home() {
         {/* Category Cards */}
         <section className="max-w-7xl mx-auto px-4 py-10">
           <h2 className="section-title mb-6">Shop by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {categories.map((cat) => (
               <Link
                 key={cat.id}
                 href={`/catalog?category=${cat.id}`}
                 className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                <div className={`bg-gradient-to-br ${categoryGradients[cat.id] || 'from-gray-500 to-gray-700'} p-6 md:p-8 text-center h-full flex flex-col items-center justify-center min-h-[200px] md:min-h-[240px]`}>
-                  {/* Shine effect on hover */}
-                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-500"></div>
-                  <div className="text-6xl md:text-7xl mb-4 group-hover:scale-110 transition-transform duration-300 drop-shadow-lg relative z-10">
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <img
+                    src={cat.image || ''}
+                    alt={cat.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  {/* Dark overlay for readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30 group-hover:from-black/90 transition-all duration-300"></div>
+                </div>
+                {/* Content */}
+                <div className="relative z-10 flex flex-col items-center justify-end p-5 md:p-6 min-h-[220px] md:min-h-[280px]">
+                  <div className="text-5xl md:text-6xl mb-3 group-hover:scale-110 transition-transform duration-300 drop-shadow-lg">
                     {categoryIcons[cat.id] || '📦'}
                   </div>
-                  <h3 className="text-white font-bold text-lg md:text-xl mb-1 relative z-10">
+                  <h3 className="text-white font-bold text-lg md:text-xl mb-1 text-center">
                     {cat.name}
                   </h3>
-                  <p className="text-white/80 text-sm relative z-10">
+                  <p className="text-white/80 text-sm text-center">
                     {cat.description}
                   </p>
+                  {/* Arrow indicator */}
+                  <div className="mt-3 inline-flex items-center gap-1 text-white/70 text-xs font-medium group-hover:text-white group-hover:gap-2 transition-all">
+                    <span>Shop Now</span>
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
               </Link>
             ))}
