@@ -7,7 +7,7 @@ import ProductCard from '@/components/ProductCard';
 import CategorySelector from '@/components/CategorySelector';
 import { products, categories, Category } from '@/data/products';
 import { useSearchParams } from 'next/navigation';
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 
 function CatalogSearch() {
@@ -17,6 +17,12 @@ function CatalogSearch() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState<'name' | 'price-asc' | 'price-desc' | 'rating'>('rating');
+
+  // Sync selectedCategory with URL changes
+  useEffect(() => {
+    const cat = searchParams.get('category') as Category | null;
+    setSelectedCategory(cat || 'all');
+  }, [searchParams]);
 
   const filteredProducts = products
     .filter(p => selectedCategory === 'all' || p.category === selectedCategory)

@@ -3,6 +3,7 @@
 import { categories, Category } from '@/data/products';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface CategorySelectorProps {
   selectedCategory: Category | 'all';
@@ -18,6 +19,7 @@ const categoryIcons: Record<string, string> = {
 function CategorySelectorInner({ selectedCategory }: CategorySelectorProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t } = useLanguage();
 
   const handleCategoryChange = (categoryId: Category | 'all') => {
     const params = new URLSearchParams(searchParams.toString());
@@ -31,32 +33,32 @@ function CategorySelectorInner({ selectedCategory }: CategorySelectorProps) {
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <h3 className="text-base font-bold text-gray-900 mb-3">Categories</h3>
+      <h3 className="text-base font-bold text-gray-900 mb-3">{t.shopByCategory || 'Категории'}</h3>
       <nav className="space-y-1">
         <button
           onClick={() => handleCategoryChange('all')}
-          className={`w-full text-left px-3 py-2 rounded-md transition-colors flex items-center gap-3 text-sm ${
+          className={`w-full text-left px-3 py-2.5 rounded-md transition-colors flex items-center gap-3 text-sm font-medium ${
             selectedCategory === 'all'
-              ? 'bg-blue-600 text-white'
+              ? 'bg-blue-600 text-white shadow-sm'
               : 'hover:bg-gray-100 text-gray-700'
           }`}
         >
-          <span className="text-lg">🏪</span>
-          <span className="font-medium">All Products</span>
+          <span className="text-xl">🏪</span>
+          <span>{t.allProductsLink || 'Все товары'}</span>
         </button>
 
         {categories.map((category) => (
           <button
             key={category.id}
             onClick={() => handleCategoryChange(category.id as Category)}
-            className={`w-full text-left px-3 py-2 rounded-md transition-colors flex items-center gap-3 text-sm ${
+            className={`w-full text-left px-3 py-2.5 rounded-md transition-colors flex items-center gap-3 text-sm font-medium ${
               selectedCategory === category.id
-                ? 'bg-blue-600 text-white'
+                ? 'bg-blue-600 text-white shadow-sm'
                 : 'hover:bg-gray-100 text-gray-700'
             }`}
           >
-            <span className="text-lg">{categoryIcons[category.id] || '📦'}</span>
-            <span className="font-medium">{category.name}</span>
+            <span className="text-xl">{categoryIcons[category.id] || '📦'}</span>
+            <span>{t[category.id as keyof typeof t] || category.name}</span>
           </button>
         ))}
       </nav>
