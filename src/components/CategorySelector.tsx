@@ -13,6 +13,7 @@ const categoryIcons: Record<string, string> = {
   mowers: '🌿',
   fishing: '🎣',
   construction: '🔨',
+  electrical: '⚡',
 };
 
 function CategorySelectorInner({ selectedCategory }: CategorySelectorProps) {

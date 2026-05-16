@@ -11,6 +11,7 @@ const navCategories = [
   { label: 'Lawn Mowers', href: '/catalog?category=mowers' },
   { label: 'Fishing Gear', href: '/catalog?category=fishing' },
   { label: 'Construction', href: '/catalog?category=construction' },
+  { label: 'Electrical', href: '/catalog?category=electrical' },
 ];
 
 export default function Header() {

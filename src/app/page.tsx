@@ -13,6 +13,23 @@ const categoryIcons: Record<string, string> = {
   mowers: '🌿',
   fishing: '🎣',
   construction: '🔨',
+  electrical: '⚡',
+};
+
+const categoryGradients: Record<string, string> = {
+  chainsaws: 'from-green-500 to-green-700',
+  mowers: 'from-emerald-400 to-teal-600',
+  fishing: 'from-blue-500 to-blue-700',
+  construction: 'from-orange-500 to-orange-700',
+  electrical: 'from-purple-500 to-indigo-700',
+};
+
+const categoryCounts: Record<string, number> = {
+  chainsaws: 25,
+  mowers: 25,
+  fishing: 25,
+  construction: 25,
+  electrical: 25,
 };
 
 export default function Home() {
@@ -59,17 +76,32 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Category Pills */}
-        <section className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex flex-wrap gap-3">
+        {/* Category Cards */}
+        <section className="max-w-7xl mx-auto px-4 py-10">
+          <h2 className="section-title mb-6">Shop by Category</h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {categories.map((cat) => (
               <Link
                 key={cat.id}
                 href={`/catalog?category=${cat.id}`}
-                className="category-pill"
+                className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                <span>{categoryIcons[cat.id] || '📦'}</span>
-                <span>{cat.name}</span>
+                <div className={`bg-gradient-to-br ${categoryGradients[cat.id] || 'from-gray-500 to-gray-700'} p-6 md:p-8 text-center h-full flex flex-col items-center justify-center min-h-[200px] md:min-h-[240px]`}>
+                  {/* Shine effect on hover */}
+                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-500"></div>
+                  <div className="text-6xl md:text-7xl mb-4 group-hover:scale-110 transition-transform duration-300 drop-shadow-lg relative z-10">
+                    {categoryIcons[cat.id] || '📦'}
+                  </div>
+                  <h3 className="text-white font-bold text-lg md:text-xl mb-1 relative z-10">
+                    {cat.name}
+                  </h3>
+                  <p className="text-white/80 text-sm mb-3 relative z-10">
+                    {cat.description}
+                  </p>
+                  <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full relative z-10">
+                    {categoryCounts[cat.id] || 0} Products
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
