@@ -20,7 +20,7 @@ export const categories = [
   { id: 'mowers', name: 'Все для сада', icon: '🌿', description: 'Садовые и профессиональные газонокосилки', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/31dd2b59c-998e-4da7-a86b-b146d820ff358965.png' },
   { id: 'construction', name: 'Строительные инструменты', icon: '🔨', description: 'Электро- и ручные инструменты', image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=600&fit=crop&q=80' },
   { id: 'electrical', name: 'Электротехника', icon: '⚡', description: 'Проводка, освещение и электрооборудование', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/249e2dfcd-4a3d-4809-97e3-360a97ad229c8777.png' },
-  { id: 'plumbing', name: 'Сантехника', icon: '🚿', description: 'Смесители, трубы и аксессуары', image: 'https://images.unsplash.com/photo-1585704032915-c3400ca189e7?w=800&h=600&fit=crop&q=80' },
+  { id: 'plumbing', name: 'Сантехника', icon: '🚿', description: 'Смесители, трубы и аксессуары', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/53c7e0fc3-c16d-4ba0-bc18-afa567ab76139550.png' },
 ] as const;
 
 const imgPath = (cat: string, n: number) => `/images/${cat}-${n}.svg`;
