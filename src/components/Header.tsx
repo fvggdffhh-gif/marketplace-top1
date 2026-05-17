@@ -20,6 +20,8 @@ export default function Header() {
     { label: t.construction, href: '/catalog?category=construction' },
     { label: t.electrical, href: '/catalog?category=electrical' },
     { label: t.plumbing, href: '/catalog?category=plumbing' },
+    { label: t.bicycles, href: '/catalog?category=bicycles' },
+    { label: t.fishing, href: '/catalog?category=fishing' },
   ];
 
   return (

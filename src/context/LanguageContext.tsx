@@ -25,6 +25,10 @@ export interface Translations {
   electricalDesc: string;
   plumbing: string;
   plumbingDesc: string;
+  bicycles: string;
+  bicyclesDesc: string;
+  fishing: string;
+  fishingDesc: string;
 
   // Homepage
   shopByCategory: string;
@@ -114,6 +118,10 @@ const translations: Record<Language, Translations> = {
     electricalDesc: 'Smart devices, gadgets & equipment',
     plumbing: 'Plumbing',
     plumbingDesc: 'Faucets, pipes & accessories',
+    bicycles: 'Bicycles',
+    bicyclesDesc: 'Mountain, road & city bikes',
+    fishing: 'Fishing',
+    fishingDesc: 'Rods, reels, lures & accessories',
     shopByCategory: 'Shop by Category',
     shopNow: 'Shop Now',
     dealOfTheDay: 'Deal of the Day',
@@ -195,6 +203,10 @@ const translations: Record<Language, Translations> = {
     electricalDesc: 'Умные устройства, гаджеты и электрооборудование',
     plumbing: 'Сантехника',
     plumbingDesc: 'Смесители, трубы и аксессуары',
+    bicycles: 'Велосипеды',
+    bicyclesDesc: 'Горные, шоссейные и городские велосипеды',
+    fishing: 'Рыбалка',
+    fishingDesc: 'Удилища, катушки, приманки и аксессуары',
     shopByCategory: 'Покупайте по категориям',
     shopNow: 'Купить',
     dealOfTheDay: 'Товар дня',

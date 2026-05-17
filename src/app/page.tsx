@@ -16,6 +16,8 @@ const categoryIcons: Record<string, string> = {
   construction: '🔨',
   electrical: '⚡',
   plumbing: '🚿',
+  bicycles: '🚲',
+  fishing: '🎣',
 };
 
 export default function Home() {
