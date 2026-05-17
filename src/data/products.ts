@@ -22,7 +22,7 @@ export const categories = [
   { id: 'electrical', name: 'Электроника', icon: '⚡', description: 'Умные устройства, гаджеты и электрооборудование', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/77ff2a0e3-dc64-4c37-a5b9-807e750a8f421575.png' },
   { id: 'plumbing', name: 'Сантехника', icon: '🚿', description: 'Смесители, трубы и аксессуары', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/53c7e0fc3-c16d-4ba0-bc18-afa567ab76139550.png' },
   { id: 'bicycles', name: 'Велосипеды', icon: '🚲', description: 'Горные, шоссейные и городские велосипеды', image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&h=600&fit=crop&q=80' },
-  { id: 'fishing', name: 'Рыбалка', icon: '🎣', description: 'Удилища, катушки, приманки и аксессуары', image: 'https://images.unsplash.com/photo-1516962215378-7fa2e137ae01?w=800&h=600&fit=crop&q=80' },
+  { id: 'fishing', name: 'Рыбалка', icon: '🎣', description: 'Удилища, катушки, приманки и аксессуары', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/05b1f2d2e-7212-435e-894a-3c8d48b21a9e1886.png' },
 ] as const;
 
 const imgPath = (cat: string, n: number) => `/images/${cat}-${n}.svg`;
