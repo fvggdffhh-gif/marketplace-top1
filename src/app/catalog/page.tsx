@@ -85,11 +85,16 @@ function CatalogSearch() {
   return (
     <>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Каталог товаров</h1>
-        <p className="text-gray-600">Весь ассортимент оборудования и инструментов</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          {selectedCategory === 'all' ? 'Каталог товаров' : categories.find(c => c.id === selectedCategory)?.name || 'Каталог товаров'}
+        </h1>
+        <p className="text-gray-600">
+          {selectedCategory === 'all' ? 'Весь ассортимент оборудования и инструментов' : `${filteredProducts.length} товаров`}
+        </p>
       </div>
 
-      {/* Deals Banner */}
+      {/* Deals Banner — only show when no specific category selected */}
+      {selectedCategory === 'all' && (
       <div className="mb-8 relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-600 via-pink-600 to-purple-600 text-white p-6 shadow-xl">
         {/* Animated background */}
         <div className="absolute inset-0 opacity-10">
@@ -130,6 +135,7 @@ function CatalogSearch() {
           })}
         </div>
       </div>
+      )}
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Sidebar */}

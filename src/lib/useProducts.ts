@@ -44,31 +44,40 @@ export function useProducts() {
 
   useEffect(() => {
     let cancelled = false;
+    const TIMEOUT_MS = 2000;
 
     async function fetchProducts() {
+      const timeoutId = setTimeout(() => {
+        if (!cancelled) {
+          console.warn('Supabase fetch timed out, using local fallback');
+          setError('Timeout');
+          setProducts(fallbackProducts.map(toDbProduct));
+          setLoading(false);
+        }
+      }, TIMEOUT_MS);
+
       try {
         const { data, error } = await supabase
           .from('products')
           .select('*')
           .order('id');
 
+        clearTimeout(timeoutId);
         if (cancelled) return;
 
         if (error) throw error;
 
         if (data && data.length > 0) {
-          // Supabase has data — use it
           setProducts(data);
         } else {
-          // Supabase is empty — fallback to local data
           console.warn('Supabase products table is empty, using local fallback');
           setProducts(fallbackProducts.map(toDbProduct));
         }
       } catch (e: any) {
         if (cancelled) return;
+        clearTimeout(timeoutId);
         console.error('Failed to fetch products from Supabase:', e);
         setError(e?.message || 'Unknown error');
-        // Fallback to local data
         setProducts(fallbackProducts.map(toDbProduct));
       } finally {
         if (!cancelled) {
