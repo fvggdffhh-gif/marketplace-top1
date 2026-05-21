@@ -23,7 +23,7 @@ export const categories = [
   { id: 'plumbing', name: 'Сантехника', icon: '🚿', description: 'Смесители, трубы и аксессуары', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/53c7e0fc3-c16d-4ba0-bc18-afa567ab76139550.png' },
   { id: 'bicycles', name: 'Велосипеды', icon: '🚲', description: 'Горные, шоссейные и городские велосипеды', image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&h=600&fit=crop&q=80' },
   { id: 'fishing', name: 'Рыбалка', icon: '🎣', description: 'Удилища, катушки, приманки и аксессуары', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/05b1f2d2e-7212-435e-894a-3c8d48b21a9e1886.png' },
-  { id: 'aircon', name: 'Кондиционеры', icon: '❄️', description: 'Сплит-системы, инверторы и мобильные кондиционеры', image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&h=600&fit=crop&q=80' },
+  { id: 'aircon', name: 'Кондиционеры', icon: '❄️', description: 'Сплит-системы, инверторы и мобильные кондиционеры', image: 'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/068a2f45b-74fc-45d5-bbb8-3faedcc698291035.png' },
 ] as const;
 
 const imgPath = (cat: string, n: number) => `/images/${cat}-${n}.svg`;
