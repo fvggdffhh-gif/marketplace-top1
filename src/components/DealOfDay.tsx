@@ -15,7 +15,7 @@ export default function DealOfDay({ dealProducts }: DealOfDayProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const product = dealProducts[currentIndex] || dealProducts[0];
-  const savings = product?.original_price ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0;
+  const savings = product?.originalPrice ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
   const stockPercent = 75;
   const stockLeft = 12;
 
@@ -135,9 +135,9 @@ export default function DealOfDay({ dealProducts }: DealOfDayProps) {
 
             {/* Price */}
             <div className="flex items-center gap-5 mb-8">
-              {product?.original_price && (
+              {product?.originalPrice && (
                 <span className="text-3xl text-gray-400 line-through font-semibold">
-                  ${product.original_price.toFixed(2)}
+                  ${product.originalPrice.toFixed(2)}
                 </span>
               )}
               <span className="text-5xl md:text-6xl font-black"

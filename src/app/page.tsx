@@ -5,10 +5,27 @@ import Footer from '@/components/Footer';
 import DiscountBanner from '@/components/DiscountBanner';
 import DealOfDay from '@/components/DealOfDay';
 import Link from 'next/link';
-import { categories, products } from '@/data/products';
+import { categories } from '@/data/products';
+import { useProducts, DbProduct } from '@/lib/useProducts';
 import { useLanguage } from '@/context/LanguageContext';
-import { ArrowRight, Truck, ShieldCheck, Headphones, Star } from 'lucide-react';
+import { ArrowRight, Truck, ShieldCheck, Headphones, Star, Loader2 } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
+
+function toProduct(p: DbProduct) {
+  return {
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    originalPrice: p.original_price || undefined,
+    category: p.category as any,
+    description: p.description || '',
+    image: p.image || '',
+    rating: p.rating || 0,
+    reviews: p.reviews || 0,
+    inStock: p.in_stock ?? true,
+    badge: p.badge || undefined,
+  };
+}
 
 const categoryIcons: Record<string, string> = {
   chainsaws: '🪚',
@@ -18,13 +35,27 @@ const categoryIcons: Record<string, string> = {
   plumbing: '🚿',
   bicycles: '🚲',
   fishing: '🎣',
+  aircon: '❄️',
 };
 
 export default function Home() {
   const { t } = useLanguage();
+  const { products: dbProducts, loading } = useProducts();
+
+  const products = dbProducts.map(toProduct);
+
   const featuredProducts = products.filter(p => p.rating >= 4.7).slice(0, 6);
-  const dealProducts = products.filter(p => p.original_price).slice(0, 6);
+  const dealProducts = products.filter(p => p.originalPrice).slice(0, 6);
   const topRated = [...products].sort((a, b) => b.rating - a.rating).slice(0, 6);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+        <Loader2 size={48} className="animate-spin text-blue-600 mb-4" />
+        <p className="text-gray-500 text-lg">Загрузка товаров...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-white">

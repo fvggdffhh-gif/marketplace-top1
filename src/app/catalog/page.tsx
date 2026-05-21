@@ -5,10 +5,27 @@ import Footer from '@/components/Footer';
 import DiscountBanner from '@/components/DiscountBanner';
 import ProductCard from '@/components/ProductCard';
 import CategorySelector from '@/components/CategorySelector';
-import { products, categories, Category } from '@/data/products';
+import { categories, Category } from '@/data/products';
+import { useProducts, DbProduct } from '@/lib/useProducts';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useState, useEffect } from 'react';
-import { Search, SlidersHorizontal, X } from 'lucide-react';
+import { Search, SlidersHorizontal, X, Loader2 } from 'lucide-react';
+
+function toProduct(p: DbProduct) {
+  return {
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    originalPrice: p.original_price || undefined,
+    category: p.category as any,
+    description: p.description || '',
+    image: p.image || '',
+    rating: p.rating || 0,
+    reviews: p.reviews || 0,
+    inStock: p.in_stock ?? true,
+    badge: p.badge || undefined,
+  };
+}
 
 function CatalogSearch() {
   const searchParams = useSearchParams();
@@ -19,17 +36,21 @@ function CatalogSearch() {
   const [sortBy, setSortBy] = useState<'name' | 'price-asc' | 'price-desc' | 'rating'>('rating');
   const [showDealsOnly, setShowDealsOnly] = useState(false);
 
+  const { products: dbProducts, loading, error } = useProducts();
+
   // Sync selectedCategory with URL changes
   useEffect(() => {
     const cat = searchParams.get('category') as Category | null;
     setSelectedCategory(cat || 'all');
   }, [searchParams]);
 
-  const dealProducts = products.filter(p => p.original_price);
+  const products = dbProducts.map(toProduct);
+
+  const dealProducts = products.filter(p => p.originalPrice);
 
   const filteredProducts = products
     .filter(p => selectedCategory === 'all' || p.category === selectedCategory)
-    .filter(p => !showDealsOnly || p.original_price)
+    .filter(p => !showDealsOnly || p.originalPrice)
     .filter(p => searchQuery === '' || p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.description.toLowerCase().includes(searchQuery.toLowerCase()))
     .sort((a, b) => {
       switch (sortBy) {
@@ -40,6 +61,26 @@ function CatalogSearch() {
         default: return 0;
       }
     });
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center py-24">
+        <Loader2 size={40} className="animate-spin text-blue-600 mb-4" />
+        <p className="text-gray-500">Загрузка товаров...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-red-500 mb-4">Ошибка загрузки: {error}</p>
+        <button onClick={() => window.location.reload()} className="btn-primary">
+          Попробовать снова
+        </button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -79,7 +120,7 @@ function CatalogSearch() {
         {/* Deals preview row */}
         <div className="relative z-10 mt-4 flex gap-3 overflow-x-auto pb-2">
           {dealProducts.slice(0, 6).map((p) => {
-            const savings = Math.round(((p.original_price! - p.price) / p.original_price!) * 100);
+            const savings = Math.round(((p.originalPrice! - p.price) / p.originalPrice!) * 100);
             return (
               <div key={p.id} className="flex-shrink-0 w-28 bg-white/10 backdrop-blur-sm rounded-xl p-2 text-center">
                 <div className="text-2xl mb-1">-{savings}%</div>

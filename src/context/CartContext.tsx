@@ -21,13 +21,21 @@ interface CartContextType {
   getTotal: () => number;
   getItemCount: () => number;
   loading: boolean;
+  comboDiscount: number;
+  comboEligible: boolean;
+  showComboPopup: boolean;
+  setShowComboPopup: (show: boolean) => void;
 }
+
+const COMBO_THRESHOLD = 3000;
+const COMBO_DISCOUNT = 0.15;
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showComboPopup, setShowComboPopup] = useState(false);
   const { supabaseUser } = useAuth();
 
   // Load cart from Supabase when user is authenticated
@@ -160,8 +168,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return items.reduce((sum, item) => sum + item.quantity, 0);
   };
 
+  const total = getTotal();
+  const comboDiscount = total >= COMBO_THRESHOLD ? COMBO_DISCOUNT : 0;
+  const comboEligible = total >= COMBO_THRESHOLD;
+
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, clearCart, getTotal, getItemCount, loading }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, clearCart, getTotal, getItemCount, loading, comboDiscount, comboEligible, showComboPopup, setShowComboPopup }}>
       {children}
     </CartContext.Provider>
   );

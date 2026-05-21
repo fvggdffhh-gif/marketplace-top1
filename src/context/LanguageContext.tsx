@@ -29,6 +29,8 @@ export interface Translations {
   bicyclesDesc: string;
   fishing: string;
   fishingDesc: string;
+  aircon: string;
+  airconDesc: string;
 
   // Homepage
   shopByCategory: string;
@@ -55,6 +57,18 @@ export interface Translations {
   signUpNow: string;
   allProductsLink: string;
 
+  // Combo notification
+  comboTitle: string;
+  comboDesc: string;
+  comboCondition: string;
+  comboMinAmount: string;
+  comboDiscount: string;
+  comboPaySingle: string;
+  comboApplied: string;
+  comboNotYet: string;
+  comboProgress: string;
+  comboRemaining: string;
+
   // Footer
   shop: string;
   account: string;
@@ -77,7 +91,6 @@ export interface Translations {
   proGrade: string;
   ecoChoice: string;
   premium: string;
-  topRated: string;
   valuePack: string;
   new: string;
   baitcaster: string;
@@ -122,6 +135,18 @@ const translations: Record<Language, Translations> = {
     bicyclesDesc: 'Mountain, road & city bikes',
     fishing: 'Fishing',
     fishingDesc: 'Rods, reels, lures & accessories',
+    aircon: 'Air Conditioners',
+    airconDesc: 'Split systems, inverters & portable AC units',
+    comboTitle: 'Build a Combo & Get 15% Off',
+    comboDesc: 'Add more items to your cart and unlock a 15% discount!',
+    comboCondition: 'Condition:',
+    comboMinAmount: 'Orders from $3,000',
+    comboDiscount: '15% discount',
+    comboPaySingle: 'Your order must be paid in a single payment',
+    comboApplied: '🎉 15% discount applied to your cart!',
+    comboNotYet: 'Add ${remaining} more to unlock 15% off',
+    comboProgress: 'Progress',
+    comboRemaining: 'Remaining',
     shopByCategory: 'Shop by Category',
     shopNow: 'Shop Now',
     dealOfTheDay: 'Deal of the Day',
@@ -164,7 +189,6 @@ const translations: Record<Language, Translations> = {
     proGrade: 'Pro Grade',
     ecoChoice: 'Eco Choice',
     premium: 'Premium',
-    topRated: 'Top Rated',
     valuePack: 'Value Pack',
     new: 'New',
     baitcaster: 'Baitcaster',
@@ -207,6 +231,18 @@ const translations: Record<Language, Translations> = {
     bicyclesDesc: 'Горные, шоссейные и городские велосипеды',
     fishing: 'Рыбалка',
     fishingDesc: 'Удилища, катушки, приманки и аксессуары',
+    aircon: 'Кондиционеры',
+    airconDesc: 'Сплит-системы, инверторы и мобильные кондиционеры',
+    comboTitle: 'Собери комбо и получи скидку 15%',
+    comboDesc: 'Добавьте больше товаров в корзину и получите скидку 15%!',
+    comboCondition: 'Условия:',
+    comboMinAmount: 'Заказы от $3,000',
+    comboDiscount: 'Скидка 15%',
+    comboPaySingle: 'Ваш заказ должен быть оплачен одним платежом',
+    comboApplied: '🎉 Скидка 15% применена к вашей корзинее!',
+    comboNotYet: 'Добавьте ещё на ${remaining}, чтобы получить скидку 15%',
+    comboProgress: 'Прогресс',
+    comboRemaining: 'Осталось',
     shopByCategory: 'Покупайте по категориям',
     shopNow: 'Купить',
     dealOfTheDay: 'Товар дня',
@@ -249,7 +285,6 @@ const translations: Record<Language, Translations> = {
     proGrade: 'Профессиональный',
     ecoChoice: 'Эко-вариант',
     premium: 'Премиум',
-    topRated: 'Высокий рейтинг',
     valuePack: 'Выгодный набор',
     new: 'Новинка',
     baitcaster: 'Мультипликатор',

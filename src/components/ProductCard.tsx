@@ -18,14 +18,15 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
 
   const discountedPrice = discountApplied ? getDiscountedPrice(product.price) : product.price;
-  const savings = product.original_price ? Math.round((product.original_price - product.price) * 100) / 100 : 0;
-  const discountPercent = product.original_price ? Math.round((savings / product.original_price) * 100) : 0;
+  const savings = product.originalPrice ? Math.round((product.originalPrice - product.price) * 100) / 100 : 0;
+  const discountPercent = product.originalPrice ? Math.round((savings / product.originalPrice) * 100) : 0;
 
   const categoryIcons: Record<string, string> = {
     chainsaws: '🪚',
     mowers: '🌿',
     fishing: '🎣',
     construction: '🔨',
+    aircon: '❄️',
   };
 
   return (
@@ -66,7 +67,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        {!product.in_stock && (
+        {!product.inStock && (
           <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
             <span className="bg-red-100 text-red-700 px-4 py-1.5 rounded-full text-sm font-semibold">
               {t.outOfStock}
@@ -94,7 +95,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             ))}
           </div>
           <span className="text-xs text-gray-500">
-            ({product.reviews_count || product.reviews})
+            ({product.reviews})
           </span>
         </div>
 
@@ -112,16 +113,16 @@ export default function ProductCard({ product }: ProductCardProps) {
             <span className="text-xl font-bold text-gray-900">
               ${discountedPrice.toFixed(2)}
             </span>
-            {product.original_price && product.price < product.original_price && (
+            {product.originalPrice && product.price < product.originalPrice && (
               <span className="text-sm text-gray-500 line-through">
-                ${product.original_price.toFixed(2)}
+                ${product.originalPrice.toFixed(2)}
               </span>
             )}
           </div>
         </div>
 
         {/* Stock & Add to Cart */}
-        {product.in_stock ? (
+        {product.inStock ? (
           <>
             <span className="flex items-center gap-1 text-green-600 text-xs font-medium mb-2">
               <CheckCircle size={12} />
