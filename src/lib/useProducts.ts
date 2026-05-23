@@ -67,10 +67,12 @@ export function useProducts() {
 
         if (error) throw error;
 
-        if (data && data.length > 0) {
+        if (data && data.length >= 10) {
+          // Supabase has sufficient data — use it
           setProducts(data);
         } else {
-          console.warn('Supabase products table is empty, using local fallback');
+          // Supabase empty or incomplete — fallback to local data
+          console.warn('Supabase has insufficient data (' + (data?.length || 0) + ' items), using local fallback');
           setProducts(fallbackProducts.map(toDbProduct));
         }
       } catch (e: any) {
