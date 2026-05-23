@@ -15,6 +15,7 @@ const DEAL_PRODUCT = {
     'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/3435a031b-c1f1-4db2-aec7-080525e753d53363.png',
     'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/0435a031b-c1f1-4db2-aec7-080525e753d51803.png',
     'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/2435a031b-c1f1-4db2-aec7-080525e753d51400.png',
+    '/ray-ban-5.webp',
   ],
 };
 
