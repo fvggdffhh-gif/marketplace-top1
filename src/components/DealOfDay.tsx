@@ -1,9 +1,11 @@
 'use client';
 
+import { useCart } from '@/context/CartContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { ArrowRight, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 const DEAL_PRODUCT = {
   name: 'Ray-Ban Meta Smart Glasses',
@@ -20,7 +22,9 @@ const DEAL_PRODUCT = {
 };
 
 export default function DealOfDay() {
+  const { addToCart } = useCart();
   const { t, language } = useLanguage();
+  const router = useRouter();
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [currentImage, setCurrentImage] = useState(0);
   const savings = Math.round(((DEAL_PRODUCT.originalPrice - DEAL_PRODUCT.price) / DEAL_PRODUCT.originalPrice) * 100);
@@ -53,6 +57,16 @@ export default function DealOfDay() {
 
   const prevImage = () => setCurrentImage(prev => (prev === 0 ? DEAL_PRODUCT.images.length - 1 : prev - 1));
   const nextImage = () => setCurrentImage(prev => (prev === DEAL_PRODUCT.images.length - 1 ? 0 : prev + 1));
+
+  const handleBuyDeal = () => {
+    addToCart({
+      id: 9001,
+      name: DEAL_PRODUCT.name,
+      price: DEAL_PRODUCT.price,
+      image: DEAL_PRODUCT.images[0],
+    });
+    router.push('/checkout');
+  };
 
   const countdownLabels = language === 'ru'
     ? { hours: 'часов', minutes: 'минут', seconds: 'секунд' }
@@ -205,6 +219,7 @@ export default function DealOfDay() {
             {/* Buttons */}
             <div className="flex flex-wrap gap-4 mb-6">
               <button
+                onClick={handleBuyDeal}
                 className="flex-1 min-w-[200px] py-5 px-8 rounded-xl text-white font-bold text-lg flex items-center justify-center gap-3 shadow-xl transition-all duration-300 hover:-translate-y-1 active:scale-95"
                 style={{
                   background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
@@ -212,7 +227,7 @@ export default function DealOfDay() {
                   animation: 'btnGlow 2s ease-in-out infinite',
                 }}
               >
-                <span className="text-2xl" style={{ animation: 'cartShake 0.5s ease-in-out infinite' }}>🛒</span>
+                <ShoppingCart size={22} />
                 {t.shopThisDeal}
               </button>
               <Link
