@@ -1,23 +1,30 @@
 'use client';
 
-import { Product } from '@/data/products';
 import { useLanguage } from '@/context/LanguageContext';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-interface DealOfDayProps {
-  dealProducts: Product[];
-}
+const DEAL_PRODUCT = {
+  name: 'Ray-Ban Meta Smart Glasses',
+  description: 'Умные очки Ray-Ban Meta со встроенной камерой, динамиками и AI-ассистентом. Стильный дизайн, кристально чистый звук и возможность снимать фото и видео прямо с очков.',
+  price: 390.15,
+  originalPrice: 459,
+  images: [
+    'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/2435a031b-c1f1-4db2-aec7-080525e753d55816.png',
+    'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/3435a031b-c1f1-4db2-aec7-080525e753d53363.png',
+    'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/0435a031b-c1f1-4db2-aec7-080525e753d51803.png',
+    'https://image.qwenlm.ai/public_source/9fc2e797-58df-4824-8691-32a78e2cc09b/2435a031b-c1f1-4db2-aec7-080525e753d51400.png',
+  ],
+};
 
-export default function DealOfDay({ dealProducts }: DealOfDayProps) {
+export default function DealOfDay() {
   const { t, language } = useLanguage();
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
-  const product = dealProducts[currentIndex] || dealProducts[0];
-  const savings = product?.originalPrice ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
-  const stockPercent = 75;
-  const stockLeft = 12;
+  const [currentImage, setCurrentImage] = useState(0);
+  const savings = Math.round(((DEAL_PRODUCT.originalPrice - DEAL_PRODUCT.price) / DEAL_PRODUCT.originalPrice) * 100);
+  const stockPercent = 73;
+  const stockLeft = 8;
 
   // Countdown timer
   useEffect(() => {
@@ -35,8 +42,16 @@ export default function DealOfDay({ dealProducts }: DealOfDayProps) {
     return () => clearInterval(interval);
   }, []);
 
-  const prev = () => setCurrentIndex(prev => (prev === 0 ? dealProducts.length - 1 : prev - 1));
-  const next = () => setCurrentIndex(prev => (prev === dealProducts.length - 1 ? 0 : prev + 1));
+  // Auto-rotate images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage(prev => (prev + 1) % DEAL_PRODUCT.images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const prevImage = () => setCurrentImage(prev => (prev === 0 ? DEAL_PRODUCT.images.length - 1 : prev - 1));
+  const nextImage = () => setCurrentImage(prev => (prev === DEAL_PRODUCT.images.length - 1 ? 0 : prev + 1));
 
   const countdownLabels = language === 'ru'
     ? { hours: 'часов', minutes: 'минут', seconds: 'секунд' }
@@ -86,33 +101,49 @@ export default function DealOfDay({ dealProducts }: DealOfDayProps) {
           >
             {t.dealOfTheDay}
           </h2>
-
-          {/* Navigation arrows */}
-          <div className="ml-auto flex gap-2">
-            <button onClick={prev} className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
-              ←
-            </button>
-            <button onClick={next} className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
-              →
-            </button>
-          </div>
         </div>
 
         {/* Product grid */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10">
-          {/* Image */}
+          {/* Image Gallery */}
           <div className="lg:col-span-2 relative">
-            <div className="rounded-2xl overflow-hidden shadow-xl" style={{ animation: 'float 3s ease-in-out infinite' }}>
+            {/* Main image */}
+            <div className="rounded-2xl overflow-hidden shadow-xl bg-gray-50 relative group" style={{ animation: 'float 3s ease-in-out infinite' }}>
               <img
-                src={product?.image}
-                alt={product?.name}
-                className="w-full h-64 md:h-80 object-cover hover:scale-110 transition-transform duration-500"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect fill=%22%23f7fafc%22 width=%22400%22 height=%22300%22 rx=%2216%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2264%22>🪚</text></svg>';
-                }}
+                src={DEAL_PRODUCT.images[currentImage]}
+                alt={DEAL_PRODUCT.name}
+                className="w-full h-64 md:h-80 object-contain group-hover:scale-105 transition-transform duration-500"
               />
+              {/* Nav arrows */}
+              <button
+                onClick={prevImage}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <ChevronRight size={18} />
+              </button>
             </div>
+
+            {/* Thumbnails */}
+            <div className="flex gap-2 mt-3 justify-center">
+              {DEAL_PRODUCT.images.map((img, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentImage(i)}
+                  className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                    i === currentImage ? 'border-blue-600 scale-110 shadow-lg' : 'border-gray-200 hover:border-gray-400'
+                  }`}
+                >
+                  <img src={img} alt="" className="w-full h-full object-contain bg-gray-50" />
+                </button>
+              ))}
+            </div>
+
             {/* Discount badge */}
             <div className="absolute -top-2 -left-2 px-5 py-3 rounded-full font-black text-2xl text-white shadow-lg"
               style={{
@@ -127,19 +158,17 @@ export default function DealOfDay({ dealProducts }: DealOfDayProps) {
           {/* Info */}
           <div className="lg:col-span-3">
             <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
-              {product?.name}
+              {DEAL_PRODUCT.name}
             </h3>
             <p className="text-gray-500 mb-6 leading-relaxed">
-              {product?.description}
+              {DEAL_PRODUCT.description}
             </p>
 
             {/* Price */}
             <div className="flex items-center gap-5 mb-8">
-              {product?.originalPrice && (
-                <span className="text-3xl text-gray-400 line-through font-semibold">
-                  ${product.originalPrice.toFixed(2)}
-                </span>
-              )}
+              <span className="text-3xl text-gray-400 line-through font-semibold">
+                ${DEAL_PRODUCT.originalPrice.toFixed(2)}
+              </span>
               <span className="text-5xl md:text-6xl font-black"
                 style={{
                   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
@@ -147,7 +176,7 @@ export default function DealOfDay({ dealProducts }: DealOfDayProps) {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                ${product?.price.toFixed(2)}
+                ${DEAL_PRODUCT.price.toFixed(2)}
               </span>
             </div>
 
@@ -218,19 +247,6 @@ export default function DealOfDay({ dealProducts }: DealOfDayProps) {
                   />
                 </div>
               </div>
-            </div>
-
-            {/* Dots */}
-            <div className="flex justify-center gap-2 mt-6">
-              {dealProducts.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentIndex(i)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    i === currentIndex ? 'bg-[#f5576c] w-8' : 'bg-gray-300 w-2.5 hover:bg-gray-400'
-                  }`}
-                />
-              ))}
             </div>
           </div>
         </div>

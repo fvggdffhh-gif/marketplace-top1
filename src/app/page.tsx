@@ -141,7 +141,7 @@ export default function Home() {
 
         {/* Deal of the Day */}
         <section className="max-w-7xl mx-auto px-4 pb-10">
-          <DealOfDay dealProducts={dealProducts} />
+          <DealOfDay />
         </section>
 
         {/* Top Deals Section */}
