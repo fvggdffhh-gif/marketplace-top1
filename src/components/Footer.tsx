@@ -11,8 +11,16 @@ export default function Footer() {
           {/* About */}
           <div className="col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="bg-blue-600 px-3 py-1.5 rounded-lg">
-                <span className="text-lg font-bold text-white">AF</span>
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden" style={{
+                background: 'linear-gradient(135deg, #0052D4 0%, #4364F7 50%, #6FB1FC 100%)',
+                boxShadow: '0 4px 15px rgba(67,100,247,0.3)',
+              }}>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white font-black text-sm tracking-tight" style={{
+                    textShadow: '0 1px 3px rgba(0,0,0,0.3)',
+                  }}>BA</span>
+                </div>
+                <div className="absolute top-0 left-0 w-full h-1/2 bg-white/10 rounded-t-xl"></div>
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">BestAustralia</h3>
