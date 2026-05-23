@@ -9,7 +9,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata: Metadata = {
-  title: "AussieFarm - Australian Marketplace",
+  title: "BestAustralia - Australian Marketplace",
   description: "Quality chainsaws, mowers, fishing gear & construction tools",
 };
 

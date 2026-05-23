@@ -114,7 +114,7 @@ export interface Translations {
 
 const translations: Record<Language, Translations> = {
   en: {
-    searchPlaceholder: 'Search everything at AussieFarm',
+    searchPlaceholder: 'Search everything at BestAustralia',
     signIn: 'Sign In',
     createAccount: 'Create Account',
     home: 'Home',
@@ -210,7 +210,7 @@ const translations: Record<Language, Translations> = {
     gameDay: 'Game Day',
   },
   ru: {
-    searchPlaceholder: 'Искать товары в AussieFarm',
+    searchPlaceholder: 'Искать товары в BestAustralia',
     signIn: 'Войти',
     createAccount: 'Создать аккаунт',
     home: 'Главная',

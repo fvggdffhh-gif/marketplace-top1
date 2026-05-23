@@ -52,7 +52,7 @@ export default function Header() {
             <div className="bg-blue-600 px-3 py-1.5 rounded-lg">
               <span className="text-xl font-bold text-white">AF</span>
             </div>
-            <span className="text-lg font-bold text-gray-900 hidden sm:block">AussieFarm</span>
+            <span className="text-lg font-bold text-gray-900 hidden sm:block">BestAustralia</span>
           </Link>
 
           {/* Search bar */}

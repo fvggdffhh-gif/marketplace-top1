@@ -57,7 +57,7 @@ export default function Login() {
               {isRegister ? 'Create Account' : 'Welcome Back'}
             </h1>
             <p className="text-gray-600 mt-2">
-              {isRegister ? 'Join AussieFarm Marketplace' : 'Sign in to your account'}
+              {isRegister ? 'Join BestAustralia Marketplace' : 'Sign in to your account'}
             </p>
           </div>
 

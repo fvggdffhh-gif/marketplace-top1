@@ -15,7 +15,7 @@ export default function Footer() {
                 <span className="text-lg font-bold text-white">AF</span>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white">AussieFarm</h3>
+                <h3 className="text-lg font-bold text-white">BestAustralia</h3>
                 <p className="text-xs text-gray-500">Marketplace</p>
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function Footer() {
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
               <span className="flex items-center gap-2">
                 <Mail size={14} />
-                support@aussiefarm.com.au
+                support@bestaustralia.com.au
               </span>
               <span className="flex items-center gap-2">
                 <Phone size={14} />
@@ -94,7 +94,7 @@ export default function Footer() {
               </span>
             </div>
             <div className="text-sm text-gray-500">
-              &copy; {new Date().getFullYear()} AussieFarm Marketplace. All rights reserved.
+              &copy; {new Date().getFullYear()} BestAustralia Marketplace. All rights reserved.
             </div>
           </div>
         </div>
