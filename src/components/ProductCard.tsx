@@ -4,11 +4,11 @@ import { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { useDiscount } from '@/context/DiscountContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { ShoppingCart, Star, CheckCircle, XCircle, Tag } from 'lucide-react';
+import { ShoppingCart, Star, CheckCircle, XCircle, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
 interface ProductCardProps {
-  product: Product;
+  product: Product & { images?: string[] };
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -16,6 +16,12 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { discountApplied, getDiscountedPrice } = useDiscount();
   const { t } = useLanguage();
   const [imageError, setImageError] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+
+  // Get images array: use product.images or fallback to single image
+  const images = product.images && product.images.length > 0 
+    ? product.images 
+    : (product.image ? [product.image] : []);
 
   const discountedPrice = discountApplied ? getDiscountedPrice(product.price) : product.price;
   const savings = product.originalPrice ? Math.round((product.originalPrice - product.price) * 100) / 100 : 0;
@@ -29,13 +35,24 @@ export default function ProductCard({ product }: ProductCardProps) {
     aircon: '❄️',
   };
 
+  const prevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImage(prev => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImage(prev => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <div className="product-card group flex flex-col h-full">
-      {/* Image */}
+      {/* Image Gallery */}
       <div className="relative bg-gray-50 aspect-square overflow-hidden">
-        {!imageError ? (
+        {/* Main Image */}
+        {!imageError && images[currentImage] ? (
           <img
-            src={product.image}
+            src={images[currentImage]}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
@@ -44,6 +61,39 @@ export default function ProductCard({ product }: ProductCardProps) {
         ) : (
           <div className="w-full h-full bg-gray-100 flex items-center justify-center">
             <span className="text-6xl">{categoryIcons[product.category] || '📦'}</span>
+          </div>
+        )}
+
+        {/* Navigation Arrows - only show if multiple images */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prevImage}
+              className="absolute left-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10"
+            >
+              <ChevronLeft size={14} />
+            </button>
+            <button
+              onClick={nextImage}
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10"
+            >
+              <ChevronRight size={14} />
+            </button>
+          </>
+        )}
+
+        {/* Thumbnail dots - show if multiple images */}
+        {images.length > 1 && (
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={(e) => { e.stopPropagation(); setCurrentImage(i); }}
+                className={`w-1.5 h-1.5 rounded-full transition-all ${
+                  i === currentImage ? 'bg-white w-3' : 'bg-white/50'
+                }`}
+              />
+            ))}
           </div>
         )}
 
