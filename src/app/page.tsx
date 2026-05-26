@@ -44,8 +44,24 @@ export default function Home() {
 
   const products = dbProducts.map(toProduct);
 
+  // Husqvarna T542i XP — featured deal
+  const husqvarnaDeal: any = {
+    id: 9002,
+    name: 'Husqvarna T542i XP Battery & Charger Included',
+    price: 429.99,
+    originalPrice: 539.99,
+    category: 'chainsaws',
+    description: 'Professional battery chainsaw with top performance. Brushless motor delivers power equivalent to a gas-powered chainsaw. Battery (BLi200X) and charger (QC500) included.',
+    features: ['Brushless motor', 'BLi200X battery', 'QC500 charger', '14" guide bar', 'Quiet operation', 'Zero emissions'],
+    image: 'https://www.husqvarna.com/globalassets/products/chainsaws/battery-chainsaws/t542i-xp-bat-ch-local-husqvarna/t542i-xp-battery-and-charger-included/t542i-xp-battery-and-charger-included-product-image.png',
+    rating: 4.8,
+    reviews: 342,
+    inStock: true,
+    badge: 'Pro Battery',
+  };
+
   const featuredProducts = products.filter(p => p.rating >= 4.7).slice(0, 6);
-  const dealProducts = products.filter(p => p.originalPrice).slice(0, 6);
+  const dealProducts = [husqvarnaDeal, ...products.filter(p => p.originalPrice).slice(0, 5)];
   const topRated = [...products].sort((a, b) => b.rating - a.rating).slice(0, 6);
 
   if (loading) {
