@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from './supabase';
-import { products as fallbackProducts } from '@/data/products';
+import { products as localProducts } from '@/data/products';
 
 export interface DbProduct {
   id: number;
@@ -18,7 +17,6 @@ export interface DbProduct {
   created_at: string;
 }
 
-/** Map local Product interface to DbProduct */
 function toDbProduct(p: any): DbProduct {
   return {
     id: p.id,
@@ -43,56 +41,18 @@ export function useProducts() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
-    const TIMEOUT_MS = 2000;
-
-    async function fetchProducts() {
-      const timeoutId = setTimeout(() => {
-        if (!cancelled) {
-          console.warn('Supabase fetch timed out, using local fallback');
-          setError('Timeout');
-          setProducts(fallbackProducts.map(toDbProduct));
-          setLoading(false);
-        }
-      }, TIMEOUT_MS);
-
-      try {
-        const { data, error } = await supabase
-          .from('products')
-          .select('*')
-          .order('id');
-
-        clearTimeout(timeoutId);
-        if (cancelled) return;
-
-        if (error) throw error;
-
-        if (data && data.length >= 10) {
-          // Supabase has sufficient data — use it
-          setProducts(data);
-        } else {
-          // Supabase empty or incomplete — fallback to local data
-          console.warn('Supabase has insufficient data (' + (data?.length || 0) + ' items), using local fallback');
-          setProducts(fallbackProducts.map(toDbProduct));
-        }
-      } catch (e: any) {
-        if (cancelled) return;
-        clearTimeout(timeoutId);
-        console.error('Failed to fetch products from Supabase:', e);
-        setError(e?.message || 'Unknown error');
-        setProducts(fallbackProducts.map(toDbProduct));
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
+    // Load directly from local products (products.ts)
+    // This is instant — no network request needed
+    try {
+      const localData = localProducts.map(toDbProduct);
+      setProducts(localData);
+      console.log(`Loaded ${localData.length} products from local catalog`);
+    } catch (e: any) {
+      console.error('Failed to load local products:', e);
+      setError(e?.message || 'Unknown error');
+    } finally {
+      setLoading(false);
     }
-
-    fetchProducts();
-
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
   return { products, loading, error };
